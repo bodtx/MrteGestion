@@ -40,7 +40,7 @@ public class ConfigLicence extends javax.swing.JFrame
         jOperation.addItem("Remplacer par:");
         jOperation.addItem("Supprimer:");
         jOperation.addItem("Ajouter:");
-        setIconImage(Toolkit.getDefaultToolkit().createImage(Gestion.class.getResource("LOGO.GIF")));
+        setIconImage(Toolkit.getDefaultToolkit().createImage(Gestion.class.getResource("/LOGO.GIF")));
         setVisible(true);
         addWindowListener(new WindowAdapter()
         {

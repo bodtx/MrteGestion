@@ -42,7 +42,7 @@ public class ConfigCategorie extends javax.swing.JFrame
         jOperation.addItem("Ajouter:");
         setVisible(true);
         setSize(700,75);
-        setIconImage(Toolkit.getDefaultToolkit().createImage(Gestion.class.getResource("LOGO.GIF")));
+        setIconImage(Toolkit.getDefaultToolkit().createImage(Gestion.class.getResource("/LOGO.GIF")));
         addWindowListener(new WindowAdapter()
         {
             public void windowClosing(WindowEvent e)

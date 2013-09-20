@@ -350,22 +350,22 @@ public class Gestion extends JFrame implements ActionListener, FocusListener
         gAssurance.add(rAssuranceN);
         
         
-        bRecherche = new JButton("Recherche", new ImageIcon(getClass().getResource("SEARCH.GIF"),"Rechercher") );
+        bRecherche = new JButton("Recherche", new ImageIcon(getClass().getResource("/SEARCH.GIF"),"Rechercher") );
         bRecherche.setMnemonic(KeyEvent.VK_ENTER);
         bRecherche.addActionListener(this);
-        bModif = new JButton("Modifier", new ImageIcon(getClass().getResource("MODIFIER.GIF"),"Modifier"));
+        bModif = new JButton("Modifier", new ImageIcon(getClass().getResource("/MODIFIER.GIF"),"Modifier"));
         bModif.addActionListener(this);
-        bAjout = new JButton("Ajouter", new ImageIcon(getClass().getResource("AJOUTER.GIF"),"Ajouter"));
+        bAjout = new JButton("Ajouter", new ImageIcon(getClass().getResource("/AJOUTER.GIF"),"Ajouter"));
         bAjout.addActionListener(this);
-        bRaz = new JButton("RAZ", new ImageIcon(getClass().getResource("RAZ.GIF"),"RAZ"));
+        bRaz = new JButton("RAZ", new ImageIcon(getClass().getResource("/RAZ.GIF"),"RAZ"));
         bRaz.addActionListener(this);
-        bImprimer = new JButton("Imprimer/Excel", new ImageIcon(getClass().getResource("IMPRIMER.GIF"),"Imprimer"));
+        bImprimer = new JButton("Imprimer/Excel", new ImageIcon(getClass().getResource("/IMPRIMER.GIF"),"Imprimer"));
         bImprimer.addActionListener(this);
-        bSuppression = new JButton("Supprimer", new ImageIcon(getClass().getResource("SUPPRIMER.GIF"),"Supprimer"));
+        bSuppression = new JButton("Supprimer", new ImageIcon(getClass().getResource("/SUPPRIMER.GIF"),"Supprimer"));
         bSuppression.addActionListener(this);
-        bEnregistrer = new JButton("Sauvegarder", new ImageIcon(getClass().getResource("SAUVEGARDER.GIF"),"Sauvegarder"));
+        bEnregistrer = new JButton("Sauvegarder", new ImageIcon(getClass().getResource("/SAUVEGARDER.GIF"),"Sauvegarder"));
         bEnregistrer.addActionListener(this);
-        bChangeAnnee = new JButton("Changer d'année", new ImageIcon(getClass().getResource("ANNEE.GIF"),"Année"));
+        bChangeAnnee = new JButton("Changer d'année", new ImageIcon(getClass().getResource("/ANNEE.GIF"),"Année"));
         bChangeAnnee.addActionListener(this);
         bMajLic = new JButton("Maj");
         bMajLic.setPreferredSize(new Dimension(75,20));
@@ -551,7 +551,7 @@ public class Gestion extends JFrame implements ActionListener, FocusListener
         });
         
         
-        setIconImage(Toolkit.getDefaultToolkit().createImage(getClass().getResource("LOGO.GIF")));
+        setIconImage(Toolkit.getDefaultToolkit().createImage(getClass().getResource("/LOGO.GIF")));
         setVisible(true);
         
     }

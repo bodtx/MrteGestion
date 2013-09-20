@@ -35,13 +35,13 @@ public class MajLicCat extends JFrame implements ActionListener
 		JLabel lRemplacementLicence = new JLabel("Opération :");
 		lRemplacementLicence.setForeground(Color.blue);
 
-		bVoir = new JButton("Apercu", new ImageIcon("apercu.gif","Aperçu"));
+		bVoir = new JButton("Apercu", new ImageIcon("/APERCU.GIF","Aperçu"));
 		//bVoir.setBackground(Color.green);
 		bVoir.addActionListener(this);
-		bImprimer = new JButton("Imprimer", new ImageIcon("imprimer.gif","Imprimer"));
+		bImprimer = new JButton("Imprimer", new ImageIcon("/IMPRIMER.GIF","Imprimer"));
 		//bImprimer.setBackground(Color.green);
 		bImprimer.addActionListener(this);
-		bFicCvs = new JButton("Générer fichier Excel", new ImageIcon("fichier.gif","Fichier"));
+		bFicCvs = new JButton("Générer fichier Excel", new ImageIcon("/FICHIER.GIF","Fichier"));
 		//bFicCvs.setBackground(Color.green);
 		bFicCvs.addActionListener(this);
 
@@ -70,7 +70,7 @@ public class MajLicCat extends JFrame implements ActionListener
 		setSize(300 ,200);
 
 
-		setIconImage(Toolkit.getDefaultToolkit().createImage(Gestion.class.getResource("logo.gif")));
+		setIconImage(Toolkit.getDefaultToolkit().createImage(Gestion.class.getResource("/LOGO.GIF")));
 		setVisible(true);
 
 		this.setVisible(true);

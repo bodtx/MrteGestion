@@ -98,13 +98,13 @@ public class FenPref extends JFrame implements ActionListener
         cAssurance = new JCheckBox();
         cDateEdition = new JCheckBox();
         
-        bVoir = new JButton("Apercu", new ImageIcon(getClass().getResource("APERCU.GIF"),"Aperçu"));
+        bVoir = new JButton("Apercu", new ImageIcon(getClass().getResource("/APERCU.GIF"),"Aperçu"));
         //bVoir.setBackground(Color.green);
         bVoir.addActionListener(this);
-        bImprimer = new JButton("Imprimer", new ImageIcon(getClass().getResource("IMPRIMER.GIF"),"Imprimer"));
+        bImprimer = new JButton("Imprimer", new ImageIcon(getClass().getResource("/IMPRIMER.GIF"),"Imprimer"));
         //bImprimer.setBackground(Color.green);
         bImprimer.addActionListener(this);
-        bFicCvs = new JButton("Générer fichier Excel", new ImageIcon(getClass().getResource("FICHIER.GIF"),"Fichier"));
+        bFicCvs = new JButton("Générer fichier Excel", new ImageIcon(getClass().getResource("/FICHIER.GIF"),"Fichier"));
         //bFicCvs.setBackground(Color.green);
         bFicCvs.addActionListener(this);
         
@@ -156,7 +156,7 @@ public class FenPref extends JFrame implements ActionListener
         setSize(screenDim.width ,screenDim.height);
         lePanelPrinc.add(lePanelH,BorderLayout.NORTH);
         
-        setIconImage(Toolkit.getDefaultToolkit().createImage(Gestion.class.getResource("LOGO.GIF")));
+        setIconImage(Toolkit.getDefaultToolkit().createImage(Gestion.class.getResource("/LOGO.GIF")));
         setVisible(true);
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         
