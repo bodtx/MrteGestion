@@ -515,9 +515,9 @@ public class Gestion extends JFrame implements ActionListener, FocusListener
 						FileInputStream streamVersion = new FileInputStream(version);
 						FTPClient f= new FTPClient();
 						try {
-							f.connect("mrtewebcam.webhop.org");
+							f.connect(Messages.getString("Go.urlFtpDataInternet"));
 						} catch (Exception e1) {
-							f.connect("192.168.1.3");//on est en local au mrte
+							f.connect(Messages.getString("Go.urlFtpDataIntranet"));//on est en local au mrte
 						}
 						f.login("mrte", "mrte91");
 						pb.setValue(25);
