@@ -36,6 +36,7 @@ import javax.swing.JPanel;
 import javax.swing.JProgressBar;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
+import javax.swing.SwingWorker;
 
 import org.apache.commons.net.ftp.FTPClient;
 
@@ -428,48 +429,55 @@ public class Gestion extends JFrame implements ActionListener, FocusListener {
             public void windowClosing(WindowEvent e) {
                 dialog.toFront(); // raise above other java windows
                 dialog.setVisible(true);
-                enregistrerFic(data);
-                // sauvegarde distante (on sait jamais)
-                int reponse = 0;
-                while (reponse == 0) {
-                    try {
-                        FileInputStream streamData = new FileInputStream(data);
-                        FileInputStream streamConfig = new FileInputStream(config);
-                        FileInputStream streamVersion = new FileInputStream(version);
-                        FTPClient f = new FTPClient();
-                        try {
-                            f.connect(Messages.getString("Go.urlFtpDataInternet"));
-                        } catch (Exception e1) {
-                            f.connect(Messages.getString("Go.urlFtpDataIntranet"));// on est en local au mrte
+                SwingWorker worker = new SwingWorker() {
+                    @Override
+                    protected Object doInBackground() throws Exception {
+                        enregistrerFic(data);
+                        // sauvegarde distante (on sait jamais)
+                        int reponse = 0;
+                        while (reponse == 0) {
+                            try {
+                                FileInputStream streamData = new FileInputStream(data);
+                                FileInputStream streamConfig = new FileInputStream(config);
+                                FileInputStream streamVersion = new FileInputStream(version);
+                                FTPClient f = new FTPClient();
+                                try {
+                                    f.connect(Messages.getString("Go.urlFtpDataInternet"));
+                                } catch (Exception e1) {
+                                    f.connect(Messages.getString("Go.urlFtpDataIntranet"));// on est en local au mrte
+                                }
+                                f.login(Messages.getString("Go.login"), Messages.getString("Go.password"));
+                                pb.setValue(25);
+                                boolean dataStored = f.storeFile("GestionLicence/data.txt", streamData);
+                                pb.setValue(50);
+                                boolean configStored = f.storeFile("GestionLicence/config.txt", streamConfig);
+                                pb.setValue(75);
+                                boolean versionStored = f.storeFile("GestionLicence/version.txt", streamVersion);
+                                pb.setValue(90);
+                                boolean lockDeleted = f.deleteFile("GestionLicence/lock.lck");
+                                pb.setValue(100);
+                                if (!dataStored || !configStored || !versionStored || !lockDeleted)
+                                    throw new Exception("Erreur de publication de donnée");
+                                streamData.close();
+                                streamConfig.close();
+                                streamVersion.close();
+                                f.disconnect();
+                                break;
+                            } catch (Exception e1) {
+                                // TODO Auto-generated catch block
+                                e1.printStackTrace();
+                                Object[] options = { "Oui", "Non" };
+                                reponse = JOptionPane.showOptionDialog(null, "Echec de sauvegarde des données modifiées, voulez vous réessayer?\n"
+                                        + "Si oui attendez 30 secondes avant de réessayer, le serveur est peut être en train de dormir...", "Attention",
+                                        JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE, null, options, options[0]);
+                            }
                         }
-                        f.login(Messages.getString("Go.login"), Messages.getString("Go.password"));
-                        pb.setValue(25);
-                        boolean dataStored = f.storeFile("GestionLicence/data.txt", streamData);
-                        pb.setValue(50);
-                        boolean configStored = f.storeFile("GestionLicence/config.txt", streamConfig);
-                        pb.setValue(75);
-                        boolean versionStored = f.storeFile("GestionLicence/version.txt", streamVersion);
-                        pb.setValue(90);
-                        boolean lockDeleted = f.deleteFile("GestionLicence/lock.lck");
-                        pb.setValue(100);
-                        if (!dataStored || !configStored || !versionStored || !lockDeleted)
-                            throw new Exception("Erreur de publication de donnée");
-                        streamData.close();
-                        streamConfig.close();
-                        streamVersion.close();
-                        f.disconnect();
-                        break;
-                    } catch (Exception e1) {
-                        // TODO Auto-generated catch block
-                        e1.printStackTrace();
-                        Object[] options = { "Oui", "Non" };
-                        reponse = JOptionPane.showOptionDialog(null, "Echec de sauvegarde des données modifiées, voulez vous réessayer?\n"
-                                + "Si oui attendez 30 secondes avant de réessayer, le serveur est peut être en train de dormir...", "Attention",
-                                JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE, null, options, options[0]);
+                        dialog.dispose();
+                        System.exit(0);
+                        return null;
                     }
-                }
-                dialog.dispose();
-                System.exit(0);
+                };
+                worker.execute();
 
             }
         });
