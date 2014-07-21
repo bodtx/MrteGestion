@@ -38,7 +38,7 @@
 						<!-- bind to phase, I prefer to call it manualls -->
 						<phase>package</phase>
 						<goals>
-							<goal>jnlp-inline</goal> <!-- use jnlp, jnlp-inline or jnlp-single as appropriate -->
+							<goal>jnlp</goal> <!-- use jnlp, jnlp-inline or jnlp-single as appropriate -->
 						</goals>
 					</execution>
 				</executions>
