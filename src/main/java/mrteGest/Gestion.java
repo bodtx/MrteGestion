@@ -126,10 +126,10 @@ public class Gestion extends JFrame implements ActionListener, FocusListener {
                     listeLigne.add(listeAttributs);
                     listeAttributs = new ArrayList();
                     attribut = "";
-                    lecteur.read();
                     numAttribut = 0;
                     break;
-                case 13:break;
+                case 13:
+                    break;
                 default:
                     attribut += (char) carLu;
                 }// switch
@@ -167,10 +167,10 @@ public class Gestion extends JFrame implements ActionListener, FocusListener {
                     break;
                 case 10:
                     attribut = "";
-                    lecteur.read();
                     numLigne++;
                     break;
-                case 13:break;
+                case 13:
+                    break;
                 default:
                     attribut += (char) carLu;
                 }// switch
