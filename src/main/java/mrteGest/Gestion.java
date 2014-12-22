@@ -46,7 +46,7 @@ public class Gestion extends JFrame implements ActionListener, FocusListener {
     Container panelPrincipal;
     JButton bRecherche, bModif, bAjout, bRaz, bImprimer, bSuppression, bEnregistrer, bChangeAnnee, bMajLic, bMajCat;
 
-    JTextField tNumLicense, tNom, tPrenom, tDatN, tAdresse, tCodP, tVille, tTel, tPrixLic, tAdhePrix, tDateEdition;
+    JTextField tNumLicense, tNom, tPrenom, tDatN, tAdresse, tCodP, tVille, tTel, tPrixLic, tAdhePrix, tDateEdition, tMail, tAdresse2;
 
     JRadioButton rNouvAncT, rNouvAncN, rNouvAncA, rInscritT, rInscritI, rInscritN, rAgeTexte, rAgeInter, rAssuranceT, rAssuranceO, rAssuranceN;
 
@@ -202,11 +202,13 @@ public class Gestion extends JFrame implements ActionListener, FocusListener {
         enTete.addElement(new String("Nouveau"));
         enTete.addElement(new String("Inscrit"));
         enTete.addElement(new String("Assurance"));
+        enTete.addElement(new String("Cpl Addr"));
+        enTete.addElement(new String("Mail"));
 
         Dimension screenDim = Toolkit.getDefaultToolkit().getScreenSize();
         setSize(screenDim.width, screenDim.height);
 
-        JLabel lNumLicense, lNom, lPrenom, lDatN, lAdresse, lCodP, lVille, lTel, lTypLic, lPrixLic, lAdhePrix, lCat, lDateEdition, lNouvAnc, lInscrit, lAssurance;
+        JLabel lNumLicense, lNom, lPrenom, lDatN, lAdresse, lCodP, lVille, lTel, lTypLic, lPrixLic, lAdhePrix, lCat, lDateEdition, lNouvAnc, lInscrit, lAssurance, lMail, lAdresse2;
 
         lNumLicense = new JLabel("Numéro de licence");
         lNom = new JLabel("Nom");
@@ -224,6 +226,8 @@ public class Gestion extends JFrame implements ActionListener, FocusListener {
         lNouvAnc = new JLabel("Nouveau");
         lInscrit = new JLabel("Inscrit");
         lAssurance = new JLabel("Assurance");
+        lMail = new JLabel("Mail");
+        lAdresse2 = new JLabel("Complément d'adresse");
 
         tNumLicense = new JTextField(15);
         tNom = new JTextField(15);
@@ -236,6 +240,8 @@ public class Gestion extends JFrame implements ActionListener, FocusListener {
         tPrixLic = new JTextField(15);
         tAdhePrix = new JTextField(15);
         tDateEdition = new JTextField(15);
+        tAdresse2 = new JTextField(15);
+        tMail = new JTextField(15);
 
         tNumLicense.addFocusListener(this);
         tNom.addFocusListener(this);
@@ -248,6 +254,8 @@ public class Gestion extends JFrame implements ActionListener, FocusListener {
         tPrixLic.addFocusListener(this);
         tAdhePrix.addFocusListener(this);
         tDateEdition.addFocusListener(this);
+        tAdresse2.addFocusListener(this);
+        tMail.addFocusListener(this);
 
         jAgeDeb = new JComboBox();
         jAgeFin = new JComboBox();
@@ -333,7 +341,7 @@ public class Gestion extends JFrame implements ActionListener, FocusListener {
         panelHaut.add(panelHautD, BorderLayout.CENTER);
         panelHaut.add(panelHautB, BorderLayout.SOUTH);
 
-        panelHautD.setLayout(new GridLayout(8, 2, 2, 2));
+        panelHautD.setLayout(new GridLayout(9, 2, 2, 2));
         panelHautB.setLayout(new GridLayout(2, 4));
         panelAge.setLayout(new FlowLayout());
         panelLic.setLayout(new FlowLayout(FlowLayout.LEFT, 0, 0));
@@ -385,6 +393,10 @@ public class Gestion extends JFrame implements ActionListener, FocusListener {
         panelHautD.add(panelAge);
         panelHautD.add(lAdresse);
         panelHautD.add(tAdresse);
+        panelHautD.add(lAdresse2);
+        panelHautD.add(tAdresse2);
+        panelHautD.add(lMail);
+        panelHautD.add(tMail);
         panelHautD.add(lCodP);
         panelHautD.add(tCodP);
         panelHautD.add(lVille);
@@ -554,6 +566,8 @@ public class Gestion extends JFrame implements ActionListener, FocusListener {
             tPrenom.setText("");
             tDatN.setText("");
             tAdresse.setText("");
+            tAdresse2.setText("");
+            tMail.setText("");
             tCodP.setText("");
             tVille.setText("");
             tTel.setText("");
@@ -641,6 +655,7 @@ public class Gestion extends JFrame implements ActionListener, FocusListener {
                                 dateN = formatDate.parse(tDatN.getText());
                             listeAttributs.add(dateN);
                             listeAttributs.add(tAdresse.getText());
+
                             listeAttributs.add(tCodP.getText());
                             listeAttributs.add(tVille.getText());
                             listeAttributs.add(tTel.getText());
@@ -665,6 +680,8 @@ public class Gestion extends JFrame implements ActionListener, FocusListener {
                                 listeAttributs.add("oui");
                             else
                                 listeAttributs.add("non");
+                            listeAttributs.add(tAdresse2.getText());
+                            listeAttributs.add(tMail.getText());
                             listeLigne.add(listeAttributs);
                             bRecherche.doClick();
                         }
@@ -747,6 +764,8 @@ public class Gestion extends JFrame implements ActionListener, FocusListener {
                                     listeAttributs.add("oui");
                                 else
                                     listeAttributs.add("non");
+                                listeAttributs.add(tAdresse2.getText());
+                                listeAttributs.add(tMail.getText());
                                 listeLigne.add(listeAttributs);
                                 JOptionPane.showMessageDialog(null, "Modification efféctuée.", "Info", JOptionPane.INFORMATION_MESSAGE);
 
@@ -904,49 +923,59 @@ public class Gestion extends JFrame implements ActionListener, FocusListener {
                                                                             || (((String) listeAttributs.get(14)).equals("non") && rInscritN.isSelected()))
                                                                         if (rAssuranceT.isSelected()
                                                                                 || (((String) listeAttributs.get(15)).equals("oui") && rAssuranceO.isSelected())
-                                                                                || (((String) listeAttributs.get(15)).equals("non") && rAssuranceN.isSelected())) {
-                                                                            rangeeCourante.addElement(listeAttributs.get(0));
-                                                                            rangeeCourante.addElement(listeAttributs.get(1));
-                                                                            rangeeCourante.addElement(listeAttributs.get(2));
-                                                                            if (listeAttributs.get(3) != null)
-                                                                                rangeeCourante.addElement(formatDate.format(listeAttributs.get(3)));
-                                                                            else
-                                                                                rangeeCourante.addElement("");
-                                                                            rangeeCourante.addElement(listeAttributs.get(4));
-                                                                            rangeeCourante.addElement(listeAttributs.get(5));
-                                                                            rangeeCourante.addElement(listeAttributs.get(6));
-                                                                            rangeeCourante.addElement(listeAttributs.get(7));
-                                                                            rangeeCourante.addElement(listeAttributs.get(8));
-                                                                            rangeeCourante.addElement(listeAttributs.get(9));
-                                                                            try {
-                                                                                prixTotalLic += Double.valueOf((String) listeAttributs.get(9));
+                                                                                || (((String) listeAttributs.get(15)).equals("non") && rAssuranceN.isSelected()))
+                                                                            if ((tAdresse2.getText()).equals("")
+                                                                                    || ((String) listeAttributs.get(16)).toUpperCase().indexOf(
+                                                                                            tAdresse2.getText().toUpperCase()) != -1)
+                                                                                if ((tMail.getText()).equals("")
+                                                                                        || ((String) listeAttributs.get(17)).toUpperCase().indexOf(
+                                                                                                tMail.getText().toUpperCase()) != -1) {
+                                                                                    rangeeCourante.addElement(listeAttributs.get(0));
+                                                                                    rangeeCourante.addElement(listeAttributs.get(1));
+                                                                                    rangeeCourante.addElement(listeAttributs.get(2));
+                                                                                    if (listeAttributs.get(3) != null)
+                                                                                        rangeeCourante.addElement(formatDate.format(listeAttributs.get(3)));
+                                                                                    else
+                                                                                        rangeeCourante.addElement("");
+                                                                                    rangeeCourante.addElement(listeAttributs.get(4));
+                                                                                    rangeeCourante.addElement(listeAttributs.get(5));
+                                                                                    rangeeCourante.addElement(listeAttributs.get(6));
+                                                                                    rangeeCourante.addElement(listeAttributs.get(7));
+                                                                                    rangeeCourante.addElement(listeAttributs.get(8));
+                                                                                    rangeeCourante.addElement(listeAttributs.get(9));
 
-                                                                            } catch (Exception ei) {
-                                                                            }
-                                                                            rangeeCourante.addElement(listeAttributs.get(10));
-                                                                            rangeeCourante.addElement(listeAttributs.get(11));
-                                                                            if (listeAttributs.get(12) != null)
-                                                                                rangeeCourante.addElement(formatDate.format(listeAttributs.get(12)));
-                                                                            else
-                                                                                rangeeCourante.addElement("");
-                                                                            if (((String) listeAttributs.get(13)).equals("oui"))
-                                                                                rangeeCourante.addElement(new Boolean(true));
-                                                                            else
-                                                                                rangeeCourante.addElement(new Boolean(false));
-                                                                            if (((String) listeAttributs.get(14)).equals("oui"))
-                                                                                rangeeCourante.addElement(new Boolean(true));
-                                                                            else
-                                                                                rangeeCourante.addElement(new Boolean(false));
-                                                                            if (((String) listeAttributs.get(15)).equals("oui"))
-                                                                                rangeeCourante.addElement(new Boolean(true));
-                                                                            else
-                                                                                rangeeCourante.addElement(new Boolean(false));
-                                                                            // lignes roses VS lignes blanches
-                                                                            if (((String) listeAttributs.get(14)).equals("oui"))
-                                                                                toutesRangees.addElement(rangeeCourante);
-                                                                            else
-                                                                                toutesRangeesFalse.addElement(rangeeCourante);
-                                                                        }
+                                                                                    try {
+                                                                                        prixTotalLic += Double.valueOf((String) listeAttributs.get(9));
+
+                                                                                    } catch (Exception ei) {
+                                                                                    }
+                                                                                    rangeeCourante.addElement(listeAttributs.get(10));
+                                                                                    rangeeCourante.addElement(listeAttributs.get(11));
+                                                                                    if (listeAttributs.get(12) != null)
+                                                                                        rangeeCourante.addElement(formatDate.format(listeAttributs.get(12)));
+                                                                                    else
+                                                                                        rangeeCourante.addElement("");
+                                                                                    if (((String) listeAttributs.get(13)).equals("oui"))
+                                                                                        rangeeCourante.addElement(new Boolean(true));
+                                                                                    else
+                                                                                        rangeeCourante.addElement(new Boolean(false));
+                                                                                    if (((String) listeAttributs.get(14)).equals("oui"))
+                                                                                        rangeeCourante.addElement(new Boolean(true));
+                                                                                    else
+                                                                                        rangeeCourante.addElement(new Boolean(false));
+                                                                                    if (((String) listeAttributs.get(15)).equals("oui"))
+                                                                                        rangeeCourante.addElement(new Boolean(true));
+                                                                                    else
+                                                                                        rangeeCourante.addElement(new Boolean(false));
+                                                                                    rangeeCourante.addElement(listeAttributs.get(16));
+                                                                                    rangeeCourante.addElement(listeAttributs.get(17));
+                                                                                    // lignes roses VS lignes blanches
+                                                                                    if (((String) listeAttributs.get(14)).equals("oui"))
+                                                                                        toutesRangees.addElement(rangeeCourante);
+                                                                                    else
+                                                                                        toutesRangeesFalse.addElement(rangeeCourante);
+
+                                                                                }
                                                     }// tadh
                     }// if dateN
         }
