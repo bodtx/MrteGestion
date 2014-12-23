@@ -71,10 +71,11 @@ public class Go {
                 version.createNewFile();
 
             FTPClient f = new FTPClient();
+            f.setConnectTimeout(2000);
             try {
-                f.connect(Messages.getString("Go.urlFtpDataInternet")); //$NON-NLS-1$
-            } catch (Exception e1) {
                 f.connect(Messages.getString("Go.urlFtpDataIntranet"));//on est en local au mrte //$NON-NLS-1$
+            } catch (Exception e1) {
+                f.connect(Messages.getString("Go.urlFtpDataInternet")); //$NON-NLS-1$
             }
 
             f.login(login, password); //$NON-NLS-1$ //$NON-NLS-2$
@@ -85,6 +86,7 @@ public class Go {
             if (lockFile.length != 0) {
                 JOptionPane.showMessageDialog(null, "Quelqu'un est en train d'utiliser l'application, vous ne pouvez pas vous y connecter pour le moment .\n" + //$NON-NLS-1$
                         "L'application va s'arreter.\n", "Attention", JOptionPane.WARNING_MESSAGE); //$NON-NLS-1$ //$NON-NLS-2$
+                f.logout();
                 f.disconnect();
                 System.exit(0);
             } else {
@@ -108,12 +110,14 @@ public class Go {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
             }
+            f.logout();
             f.disconnect();
             f = new FTPClient();
+            f.setConnectTimeout(2000);
             try {
-                f.connect(Messages.getString("Go.urlFtpDataInternet")); //$NON-NLS-1$
-            } catch (Exception e1) {
                 f.connect(Messages.getString("Go.urlFtpDataIntranet"));//on est en local au mrte //$NON-NLS-1$
+            } catch (Exception e1) {
+                f.connect(Messages.getString("Go.urlFtpDataInternet")); //$NON-NLS-1$
             }
             f.login(login, password); //$NON-NLS-1$ //$NON-NLS-2$
             pb.setValue(50);
@@ -141,9 +145,11 @@ public class Go {
                     streamData.close();
                     streamConfig.close();
                     streamVersion.close();
+                    f.logout();
                     f.disconnect();
                 } else {
                     // on récupère rien.
+                    f.logout();
                     f.disconnect();
                 }
             } else {
@@ -163,6 +169,7 @@ public class Go {
                 streamData.close();
                 streamConfig.close();
                 streamVersion.close();
+                f.logout();
                 f.disconnect();
 
                 BufferedWriter writer = new BufferedWriter(new FileWriter(version));

@@ -455,10 +455,11 @@ public class Gestion extends JFrame implements ActionListener, FocusListener {
                                 FileInputStream streamConfig = new FileInputStream(config);
                                 FileInputStream streamVersion = new FileInputStream(version);
                                 FTPClient f = new FTPClient();
+                                f.setConnectTimeout(2000);
                                 try {
-                                    f.connect(Messages.getString("Go.urlFtpDataInternet"));
-                                } catch (Exception e1) {
                                     f.connect(Messages.getString("Go.urlFtpDataIntranet"));// on est en local au mrte
+                                } catch (Exception e1) {
+                                    f.connect(Messages.getString("Go.urlFtpDataInternet"));
                                 }
                                 f.login(Messages.getString("Go.login"), Messages.getString("Go.password"));
                                 pb.setValue(25);
